@@ -293,7 +293,8 @@ function! g:projectionist_transformations.snakecase(input, o) abort
 endfunction
 
 function! g:projectionist_transformations.dirname(input, o) abort
-  return substitute(a:input, '.[^'.projectionist#slash().'/]*$', '', '')
+  let dir = substitute(a:input, '.[^'.projectionist#slash().'/]*$', '', '')
+  return (dir == "") ? "." : dir
 endfunction
 
 function! g:projectionist_transformations.basename(input, o) abort
@@ -851,7 +852,7 @@ function! s:edit_command(mods, edit, count, ...) abort
       let i = 0
       for [alt, _] in alternates
         let i += 1
-        let relative = fnamemodify(alt, ":~:.")
+        let relative = substitute(fnamemodify(alt, ":~:."), "^\./", "", "")
         call add(choices, i.' '.relative)
       endfor
       let i = inputlist(choices)
