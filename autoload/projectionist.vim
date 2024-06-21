@@ -852,7 +852,7 @@ function! s:edit_command(mods, edit, count, ...) abort
       let i = 0
       for [alt, _] in alternates
         let i += 1
-        let relative = substitute(fnamemodify(alt, ":~:."), "^\./", "", "")
+        let relative = substitute(fnamemodify(alt, ":~:."), "^\." . projectionist#slash(), "", "")
         call add(choices, i.' '.relative)
       endfor
       let i = inputlist(choices)
